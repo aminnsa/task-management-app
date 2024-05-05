@@ -3,7 +3,6 @@ import InProgressTasks from "./InProgressTasks";
 import Task from "./Task";
 
 function TaskColumn({ title, tasks }) {
-  //columns border
   
   return (
     <div className="flex flex-col bg-gray-100 h-screen w-1/3 rounded-md  border-[0.5px] border-gray-300">
