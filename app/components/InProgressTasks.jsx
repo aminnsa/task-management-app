@@ -1,8 +1,10 @@
 "use client"
 
 import React, { useEffect, useState } from 'react'
-import { APIBaseURL } from '../constants'
 import TaskColumn from './TaskColumn'
+import { APIBaseURL } from '../constants'
+
+
 
 function InProgressTasks() {
   const [tasks, setTasks] = useState(null)
@@ -15,12 +17,13 @@ function InProgressTasks() {
   const handleFetchTasks = async () => {
     
     setLoading(true)
+ 
     
-    const response = await fetch(APIBaseURL)
-    if(response.ok) {
-        const responseBody = await response.json();
-        setTasks(responseBody.filter(task => task.isDone === false))
-    }
+   const response = await fetch(APIBaseURL)
+   if(response.ok) {
+    const responseBody = await response.json();
+    setTasks(responseBody.filter(task => task.isDone === false))
+   }
 
     setLoading(false)
   }
