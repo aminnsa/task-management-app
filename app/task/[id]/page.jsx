@@ -10,6 +10,7 @@ function TaskDetailPage({ params }) {
   const router = useRouter();
   const [task, setTask] = useState(null);
   const [Loading, setLoading] = useState(false);
+  const [deleteTaskLoading, setDeleteTaskLoading] = useState(false)
 
   useEffect(() => {
     handleFetchTask();
@@ -31,7 +32,7 @@ function TaskDetailPage({ params }) {
   const handleMarkAsDone = async () => {
     setLoading(true);
 
-    const requestBody = { isDone: true }
+    const requestBody = { isDone: true };
 
     const response = await fetch(`${APIBaseURL}/${task.id}`, {
       method: "PUT",
@@ -39,7 +40,7 @@ function TaskDetailPage({ params }) {
       headers: {
         "Content-Type": "application/json",
       },
-    })
+    });
     if (response.ok) {
       router.push(`/`);
     }
@@ -49,7 +50,7 @@ function TaskDetailPage({ params }) {
   const handleMarkAsUnDone = async () => {
     setLoading(true);
 
-    const requestBody = { isDone: false }
+    const requestBody = { isDone: false };
 
     const response = await fetch(`${APIBaseURL}/${task.id}`, {
       method: "PUT",
@@ -57,11 +58,25 @@ function TaskDetailPage({ params }) {
       headers: {
         "Content-Type": "application/json",
       },
-    })
+    });
     if (response.ok) {
       router.push(`/`);
     }
     setLoading(false);
+  };
+
+  const handleDeleteTask = async () => {
+    setDeleteTaskLoading(true);
+
+    const response = await fetch(`${APIBaseURL}/${task.id}`, {
+      method: "DELETE",
+    });
+    
+    setDeleteTaskLoading(false);
+
+    if (response.ok) {
+      router.push("/");
+    }
   };
 
   return (
@@ -77,7 +92,8 @@ function TaskDetailPage({ params }) {
             <p className="font-semibold text-lg">{task.title}</p>
             <p>{task.desc}</p>
 
-            <div className="flex mt-10">
+            <div className="flex mt-10 gap-3
+            ">
               {!task.isDone && (
                 <Button
                   onClick={handleMarkAsDone}
@@ -92,6 +108,12 @@ function TaskDetailPage({ params }) {
                   isLoading={Loading}
                 />
               )}
+              <Button
+              title={'Delete task'}
+                color="bg-red-500"
+                isLoading={deleteTaskLoading}
+                onClick={handleDeleteTask}
+              />
             </div>
           </div>
         )}
