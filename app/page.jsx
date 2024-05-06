@@ -1,6 +1,4 @@
-import Image from "next/image";
 import Header from "./components/Header";
-import TaskColumn from "./components/TaskColumn";
 import InProgressTasks from "./components/InProgressTasks";
 import DoneTasks from "./components/doneTasks";
 import NewTask from "./components/NewTask";

@@ -6,27 +6,23 @@ import TaskColumn from "./TaskColumn";
 
 function DoneTasks() {
   const [tasks, setTasks] = useState(null);
-  const [Loading, setLoading] = useState(false)
+  const [Loading, setLoading] = useState(false);
 
   useEffect(() => {
     handleFetchTasks();
   }, []);
 
   const handleFetchTasks = async () => {
-    setLoading(true)
+    setLoading(true);
     const response = await fetch(APIBaseURL);
     if (response.ok) {
       const responseBody = await response.json();
       setTasks(responseBody.filter((task) => task.isDone === true));
     }
-    setLoading(false)
+    setLoading(false);
   };
 
-  return tasks ? (
-    <TaskColumn title={"Done"} tasks={tasks} />
-  ) : (
-    <p>Loading...</p>
-  );
+  return <TaskColumn title={"Done"} tasks={tasks} isLoading={Loading} />;
 }
 
 export default DoneTasks;

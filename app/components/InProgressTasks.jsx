@@ -6,20 +6,26 @@ import TaskColumn from './TaskColumn'
 
 function InProgressTasks() {
   const [tasks, setTasks] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     handleFetchTasks()
   }, [])
 
   const handleFetchTasks = async () => {
+    
+    setLoading(true)
+    
     const response = await fetch(APIBaseURL)
     if(response.ok) {
         const responseBody = await response.json();
         setTasks(responseBody.filter(task => task.isDone === false))
     }
+
+    setLoading(false)
   }
 
-  return tasks ? <TaskColumn title= {'In Progress'} tasks= {tasks} /> : <p>Loading...</p>
+  return  <TaskColumn title= {'In Progress'} tasks= {tasks} isLoading={loading}/>
 }
 
 export default InProgressTasks

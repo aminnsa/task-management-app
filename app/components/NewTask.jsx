@@ -3,16 +3,38 @@
 import React, { useState } from "react";
 import Button from "./Button";
 import { APIBaseURL } from "../constants";
-
+import ErrorMessage from "./ErrorMessage";
+import Input from "./Input";
+import cx from 'classnames'
 
 function NewTask() {
   const [title, setTitle] = useState(null);
   const [desc, setDesc] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [titleError, setTitleError] = useState(null);
+  const [descError, setDescError] = useState(null);
 
   const handleFetchNewTask = async () => {
-    if (title.length == 0 || desc.length == 0) {
+    setTitleError(null);
+    setDescError(null);
+
+    let hasError = false;
+
+    if (!title || title.length === 0) {
+      setTitleError("Title is required!");
+      hasError = true;
+    }
+
+    if (!desc || desc.length === 0) {
+      setDescError("Description is required!");
+      hasError = true;
+    }
+
+    if (hasError) {
       return;
     }
+
+    setLoading(true);
 
     const requestBody = {
       title: title,
@@ -30,6 +52,8 @@ function NewTask() {
     if (request.ok) {
       location.reload();
     }
+
+    setLoading(false);
   };
 
   return (
@@ -37,19 +61,22 @@ function NewTask() {
       <div className=" font-bold p-3">New Task</div>
       <div className="w-full border-b-[0.5px] h-[1px] border-gray-300 mt-1"></div>
       <div className="flex flex-col gap-8 p-4">
-        <input
-          className="bg-gray-300 text-gray-800 h-14 rounded-md p-3 outline-none"
-          placeholder="Title"
+        <Input
           onChange={(e) => setTitle(e.target.value)}
+          placeHolder={"Title"}
+          error={titleError}
         />
-        <input
-          className="bg-gray-300 text-gray-800 h-36 rounded-md p-3 outline-none "
-          placeholder="Desc"
-          onChange={(e) => setDesc(e.target.value)}
-        />
+        <div className="flex flex-col gap-2">
+          <textarea
+            className={cx("bg-gray-300 text-gray-800 h-36 rounded-md p-3 outline-none", descError && 'border border-1 border-red-500')}
+            placeholder="Desc"
+            onChange={(e) => setDesc(e.target.value)}
+          />
+          {descError && <ErrorMessage message={descError} />}
+        </div>
       </div>
-      <div className="flex justify-center py-36" onClick={handleFetchNewTask}>
-        <Button title={"Add Task"} />
+      <div className="flex justify-center mt-36" onClick={handleFetchNewTask}>
+        <Button title={"Add Task"} isLoading={loading} />
       </div>
     </div>
   );
