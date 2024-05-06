@@ -2,7 +2,7 @@ import React from "react";
 
 function Loading() {
   return (
-    <div className="flex w-full items-center justify-center mt-10">
+    <div className="flex w-full items-center justify-center">
       <svg
         aria-hidden="true"
         class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
