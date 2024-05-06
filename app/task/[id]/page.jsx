@@ -1,6 +1,6 @@
 "use client";
 
-import Buttons from "@/app/components/Buttons";
+import Button from "@/app/components/Button";
 import Header from "@/app/components/Header";
 import { APIBaseURL } from "@/app/constants";
 import { useRouter } from "next/navigation";
@@ -79,14 +79,14 @@ function TaskDetailPage({ params }) {
 
             <div className="flex mt-10">
               {!task.isDone && (
-                <Buttons
+                <Button
                   onClick={handleMarkAsDone}
                   title={"Mark as done"}
                   isLoading={Loading}
                 />
               )}
               {task.isDone && (
-                <Buttons
+                <Button
                   onClick={handleMarkAsUnDone}
                   title={"Mark as undone"}
                   isLoading={Loading}

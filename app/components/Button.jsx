@@ -1,11 +1,12 @@
 import React from 'react'
+import Loading from './Loading'
 
-function Buttons({title, isLoading, onClick}) {
+function Button({title, isLoading, onClick}) {
   return ( ! isLoading ?
     <div className='bg-black p-3 rounded-md text-white cursor-pointer' onClick={onClick} >
       {title}
-    </div> : <p>Loading...</p>
+    </div> : <Loading />
   )
 }
 
-export default Buttons
+export default Button
