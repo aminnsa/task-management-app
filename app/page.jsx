@@ -6,6 +6,7 @@ import NewTask from "./components/NewTask";
 export default function Home() {
   return (
     <div>
+      <p>test</p>
       <Header />
       <div className="flex w-full justify-between p-4 gap-4  ">
         <NewTask />
