@@ -19,11 +19,12 @@ function InProgressTasks() {
     setLoading(true)
  
     
-   const response = await fetch(APIBaseURL)
+   const response = await fetch(APIBaseURL);
    if(response.ok) {
     const responseBody = await response.json();
     setTasks(responseBody.filter(task => task.isDone === false))
    }
+   
 
     setLoading(false)
   }

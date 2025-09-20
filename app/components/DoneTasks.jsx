@@ -19,6 +19,7 @@ function DoneTasks() {
       const responseBody = await response.json();
       setTasks(responseBody.filter((task) => task.isDone === true));
     }
+    
     setLoading(false);
   };
 

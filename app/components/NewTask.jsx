@@ -5,7 +5,7 @@ import Button from "./Button";
 import { APIBaseURL } from "../constants";
 import ErrorMessage from "./ErrorMessage";
 import Input from "./Input";
-import cx from 'classnames'
+import cx from "classnames";
 
 function NewTask() {
   const [title, setTitle] = useState(null);
@@ -49,6 +49,7 @@ function NewTask() {
         "Content-Type": "application/json",
       },
     });
+
     if (request.ok) {
       location.reload();
     }
@@ -68,7 +69,10 @@ function NewTask() {
         />
         <div className="flex flex-col gap-2">
           <textarea
-            className={cx("bg-gray-300 text-gray-800 h-36 rounded-md p-3 outline-none", descError && 'border border-1 border-red-500')}
+            className={cx(
+              "bg-gray-300 text-gray-800 h-36 rounded-md p-3 outline-none",
+              descError && "border border-1 border-red-500"
+            )}
             placeholder="Desc"
             onChange={(e) => setDesc(e.target.value)}
           />

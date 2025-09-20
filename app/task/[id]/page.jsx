@@ -10,7 +10,7 @@ function TaskDetailPage({ params }) {
   const router = useRouter();
   const [task, setTask] = useState(null);
   const [Loading, setLoading] = useState(false);
-  const [deleteTaskLoading, setDeleteTaskLoading] = useState(false)
+  const [deleteTaskLoading, setDeleteTaskLoading] = useState(false);
 
   useEffect(() => {
     handleFetchTask();
@@ -71,7 +71,7 @@ function TaskDetailPage({ params }) {
     const response = await fetch(`${APIBaseURL}/${task.id}`, {
       method: "DELETE",
     });
-    
+
     setDeleteTaskLoading(false);
 
     if (response.ok) {
@@ -92,8 +92,10 @@ function TaskDetailPage({ params }) {
             <p className="font-semibold text-lg">{task.title}</p>
             <p>{task.desc}</p>
 
-            <div className="flex mt-10 gap-3
-            ">
+            <div
+              className="flex mt-10 gap-3
+            "
+            >
               {!task.isDone && (
                 <Button
                   onClick={handleMarkAsDone}
@@ -109,7 +111,7 @@ function TaskDetailPage({ params }) {
                 />
               )}
               <Button
-              title={'Delete task'}
+                title={"Delete task"}
                 color="bg-red-500"
                 isLoading={deleteTaskLoading}
                 onClick={handleDeleteTask}

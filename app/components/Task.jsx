@@ -15,17 +15,14 @@ function Task({ title, desc, id, isDone, createdAt }) {
     >
       <div className="flex items-center gap-2 mb-5">
         <div
-          className={cx(
-            "h-2 w-2 rounded-full",
-            isDone ? "bg-green-300" : "bg-red-300"
-          )}
+          className={`
+            h-2 w-2 rounded-full
+            ${isDone ? "bg-green-300" : "bg-red-300"}`}
         ></div>
 
-       
-          <p className="text-xs text-gray-500 ">
-            {new Date(createdAt).toLocaleString()}
-          </p>
-        
+        <p className="text-xs text-gray-500 ">
+          {new Date(createdAt).toLocaleString()}
+        </p>
       </div>
       <div>
         <p className="font-bold text-white text-md">{title}</p>
