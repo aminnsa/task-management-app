@@ -1,9 +1,7 @@
-import { DoneTasksData } from "@/libs/data/DoneData";
 import TaskColumn from "./TaskColumn";
-import { Suspense } from "react";
-import Loading from "../Loading";
+import { SsrDoneData } from "../server-actions/SsrDoneData";
 
 export const SsrDoneTasks = async () => {
-  const data = await DoneTasksData();
-  return <TaskColumn title={"Done"} tasks={data} />;
+  const tasks = await SsrDoneData();
+  return <TaskColumn title={"Done"} tasks={tasks} />;
 };

@@ -8,33 +8,29 @@ import {
   MarkTaskAsUnDoneAction,
 } from "../../server-actions";
 import { revalidatePath } from "next/cache";
+import redisClient from "@/libs/redis";
 
 async function TaskDetailPage({ params }) {
   revalidatePath(`/ssr/ssrTask/${params.id}`);
 
-  const response = await fetch(`${APIBaseURL}/${params.id}`);
-
-  if (!response.ok) {
-    return null;
-  }
-  const responseBody = await response.json();
+const task = await redisClient.hGetAll(`task:${params.id}`)
 
   return (
     <div>
       <Header />
 
       <div>
-        {responseBody && (
+        {task && (
           <div className="p-10">
             <p className="text-sm text-gray-500 mb-6">
-              {new Date(responseBody.createdAt).toLocaleString()}
+              {new Date(Number(task.createdAt)).toLocaleString()}
             </p>
-            <p className="font-semibold text-lg">{responseBody.title}</p>
-            <p>{responseBody.desc}</p>
+            <p className="font-semibold text-lg">{task.title}</p>
+            <p>{task.desc}</p>
 
             <div className="flex mt-10 gap-3">
-              {!responseBody.isDone && (
-                <form action={MarkTaskAsDoneAction.bind(null, responseBody.id)}>
+              {task.isDone === 'false' && (
+                <form action={MarkTaskAsDoneAction.bind(null, task.id)}>
                   <button
                     type="submit"
                     className="p-3 rounded-md text-white cursor-pointer min-w-20 bg-black"
@@ -43,9 +39,9 @@ async function TaskDetailPage({ params }) {
                   </button>
                 </form>
               )}
-              {responseBody.isDone && (
+              {task.isDone === 'true' && (
                 <form
-                  action={MarkTaskAsUnDoneAction.bind(null, responseBody.id)}
+                  action={MarkTaskAsUnDoneAction.bind(null, task.id)}
                 >
                   <button
                     type="submit"
@@ -55,7 +51,7 @@ async function TaskDetailPage({ params }) {
                   </button>
                 </form>
               )}
-              <form action={DeleteTaskAction.bind(null, responseBody.id)}>
+              <form action={DeleteTaskAction.bind(null, task.id)}>
                 <button
                   type="submit"
                   className="p-3 rounded-md text-white cursor-pointer min-w-20 bg-red-500"

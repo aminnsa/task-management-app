@@ -1,6 +1,6 @@
+import DoneTasks from "./components/DoneTasks";
 import Header from "./components/Header";
 import InProgressTasks from "./components/InProgressTasks";
-import DoneTasks from "./components/doneTasks";
 import NewTask from "./components/NewTask";
 
 export default function Home() {

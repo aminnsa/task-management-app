@@ -9,7 +9,7 @@ function Task({ title, desc, id, isDone, createdAt }) {
           <div
             className={`
             h-2 w-2 rounded-full
-            ${isDone ? "bg-green-300" : "bg-red-300"}`}
+            ${isDone === true ? "bg-green-300" : "bg-red-300"}`}
           ></div>
 
           <p className="text-xs text-gray-500 ">
